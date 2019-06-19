@@ -1,0 +1,98 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:300';
+
+* {
+    font-family: Lato;
+    margin: 0rem;
+    padding: 0rem;
+}
+  
+/* --- ID Styles  --- */
+#fiveDayWeatherReport {
+    height: 50rem;
+    border-top: 1px solid black;
+}
+
+#footer {
+    height:5rem;
+    width:100vw;
+    position:fixed;
+    bottom:0;
+    border: 1px solid black;
+}
+
+#forecastLocation {
+    margin-top: 11rem;
+    font-size: 170%;
+}
+
+#forecastDescription {
+    font-size: 75%;
+}
+
+#forecastTemp {
+    margin-top: 11rem;
+    font-size: 400%;
+}
+
+#highTemp {
+    margin-right: 0rem;
+}
+
+#lowTemp {
+    float: right;
+    margin-left: 1.5rem;
+    margin-right: 4vw;
+    font-size: 75%;
+}
+
+#navbar {
+    height: 11rem;
+    background-color: #72bcd4;
+}
+
+#searchBar {
+    padding: 0rem 0rem 0rem 1rem;
+    height: 4rem;
+    width: 70vw;
+    font-size: 200%;
+    float: left;
+    border: none;
+}
+
+#searchButton {
+    margin-right: 0rem;
+    height: 4.05rem;
+    width: 20vw;
+    font-size: 200%;
+    border: none;
+}
+
+#searchContainer {
+    margin: 0rem 4vw 0rem 4vw;
+}
+
+#title {
+    padding: 0.625rem;
+    text-align: center;
+    font-size: 400%;
+    color: white;
+}
+
+#weatherDisplay {
+    border-top: 1px solid transparent;
+    width: 100vw;
+    height: 66rem;
+    font-size: 400%;
+}
+  
+/* --- Class Styles  --- */
+
+.forecast {
+    text-align: center;
+}
+
+.highLowTemps {
+    float: right;
+    margin-top: 9rem;
+    font-size: 75%;
+}
