@@ -7,6 +7,16 @@
 }
   
 /* --- ID Styles  --- */
+#date {
+    font-size: 40%;
+    margin-top: 10.3rem;
+    margin-left: 1rem;
+}
+
+#day {
+    margin-left: 4vw;
+}
+
 #fiveDayWeatherReport {
     height: 50rem;
     border-top: 1px solid black;
@@ -86,6 +96,11 @@
 }
   
 /* --- Class Styles  --- */
+.dayAndDate {
+    float: left;
+    margin-top: 9rem;
+    font-size: 75%;
+}
 
 .forecast {
     text-align: center;
