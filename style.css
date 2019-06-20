@@ -11,15 +11,23 @@
     font-size: 40%;
     margin-top: 10.3rem;
     margin-left: 1rem;
+    font-weight: bolder;
 }
 
 #day {
     margin-left: 4vw;
+    font-weight: bolder;
 }
 
 #fiveDayWeatherReport {
     height: 50rem;
     border-top: 1px solid black;
+}
+
+
+#fiveDayWeatherReportTable {
+    margin: 0rem auto;
+    font-size: 300%;
 }
 
 #footer {
@@ -33,10 +41,12 @@
 #forecastLocation {
     margin-top: 11rem;
     font-size: 170%;
+    font-weight: bolder;
 }
 
 #forecastDescription {
     font-size: 75%;
+    font-weight: bold;
 }
 
 #forecastTemp {
@@ -46,6 +56,7 @@
 
 #highTemp {
     margin-right: 0rem;
+    color: red;
 }
 
 #lowTemp {
@@ -53,6 +64,7 @@
     margin-left: 1.5rem;
     margin-right: 4vw;
     font-size: 75%;
+    color: blue;
 }
 
 #navbar {
@@ -102,6 +114,19 @@
     font-size: 75%;
 }
 
+.fiveDayWeatherReportDay {
+    margin-left: 4vw;
+    margin-right: 4vw;
+}
+
+.fiveDayWeatherReportForecast {
+    text-align: center;
+}
+
+.fiveDayWeatherReportHighAndLow {
+    text-align: right;
+}
+
 .forecast {
     text-align: center;
 }
@@ -110,4 +135,5 @@
     float: right;
     margin-top: 9rem;
     font-size: 75%;
+    font-weight: bolder;
 }
