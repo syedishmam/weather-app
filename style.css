@@ -13,6 +13,11 @@ td {
 }
   
 /* --- ID Styles  --- */
+#currentForecastBreakDown {
+    height: 10rem;
+    width: 100vw;
+}
+
 #date {
     font-size: 40%;
     margin-top: 10.3rem;
@@ -26,8 +31,8 @@ td {
 }
 
 #fiveDayWeatherReport {
-    height: 50rem;
-    border-top: 1px solid black;
+    height: 40rem;
+    border: 1px solid black;
 }
 
 
