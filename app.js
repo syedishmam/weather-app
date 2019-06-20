@@ -8,12 +8,14 @@ const weatherDisplay = document.getElementById('weatherDisplay');
 //Event Listeners
 searchButton.addEventListener('click', () => {
     fetchCurrentWeatherAPI(searchBar.value);
+    fetchFiveDayWeatherForecastAPI(searchBar.value);
 })
 
 searchBar.addEventListener('keypress', (event) => {
     const key = event.which;
     if(key === 13) {
         fetchCurrentWeatherAPI(searchBar.value);
+        fetchFiveDayWeatherForecastAPI(searchBar.value);
     }
 })
 
@@ -40,22 +42,30 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
 }
 
 function fetchCurrentWeatherAPI(search) {
-    let city = 'https://api.openweathermap.org/data/2.5/weather?q=';
-    city += search;
-    city += id;
-    console.log(city);
-    fetch(city).
+    let url = 'https://api.openweathermap.org/data/2.5/weather?q=';
+    url += search;
+    url += id;
+    console.log('Current Weather API: ' + url);
+    fetch(url).
     then(data => data.json()).
     then(data => getCurrentWeatherEndPoints(data));
 }
 
+function fetchFiveDayWeatherForecastAPI(search) {
+    let url = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+    url += search;
+    url += id;
+    console.log('5 Day API: ' + url);
+    fetch(url).
+    then(data => data.json()).
+    then(data => console.log(data));
+}
+
 function getCurrentWeatherEndPoints(data) {
-    console.log(data);
+    //console.log(data);
     const location = data.name;
     const forecastLocationDateAndTime = locationDateAndTime(data.timezone);
-    console.log(forecastLocationDateAndTime);
     const decription = data.weather[0].main;
-    //const icon = data.weather[0].icon;
     const kelvinTemps = [data.main.temp, data.main.temp_min, data.main.temp_max];
     const fahrenheitTemps = kelvinToFahrenheitConversion(kelvinTemps);
     displayCurrentWeather(location, decription, fahrenheitTemps, forecastLocationDateAndTime);

@@ -19,7 +19,7 @@ td {
 }
 
 #date {
-    font-size: 40%;
+    font-size: 45%;
     margin-top: 10.3rem;
     margin-left: 1rem;
     font-weight: bolder;
@@ -135,10 +135,6 @@ td {
     margin-left: 4vw;
     padding-right: 10rem;
     padding-left: 0rem;
-}
-
-.fiveDayWeatherReportForecast {
-
 }
 
 .fiveDayWeatherReportHigh {
