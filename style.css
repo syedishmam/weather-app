@@ -13,11 +13,6 @@ td {
 }
   
 /* --- ID Styles  --- */
-#currentForecastBreakDown {
-    height: 10rem;
-    width: 100vw;
-}
-
 #date {
     font-size: 45%;
     margin-top: 10.3rem;
@@ -93,7 +88,8 @@ td {
     padding: 0rem 0rem 0rem 1rem;
     height: 4rem;
     width: 70vw;
-    font-size: 200%;
+    font-size: 220%;
+    font-weight: bold;
     float: left;
     border: none;
 }
@@ -115,6 +111,12 @@ td {
     text-align: center;
     font-size: 400%;
     color: white;
+}
+
+#triHourlyForecast {
+    height: 10rem;
+    width: 100vw;
+    border: 1px solid black;
 }
 
 #weatherDisplay {

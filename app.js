@@ -1,4 +1,5 @@
 const id = '&APPID=461cc545cccc3774d751cba7596261d3';
+let forecastLocationDateAndTime;
 
 const searchBar = document.getElementById("searchBar");
 const searchButton = document.getElementById("searchButton");
@@ -21,7 +22,9 @@ searchBar.addEventListener('keypress', (event) => {
 
 //Methods
 function displayCurrentWeather(location, description, temp, dayDateAndTime) {
-    console.log('City: ' + location 
+    console.log(
+        'Current Weather'
+        + '\n\nCity: ' + location 
         + '\nForecast: ' + description 
         + '\nCurrent Temp: ' + temp[0] 
         + '\nLow: ' + temp[1] 
@@ -38,7 +41,6 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
     HTML += '<p id="day" class="dayAndDate">'+ dayDateAndTime[0] + '</p>';
     HTML += '<p id="date" class="dayAndDate">'+ dayDateAndTime[1] + '</p>';
     weatherDisplay.innerHTML = HTML;
-
 }
 
 function fetchCurrentWeatherAPI(search) {
@@ -58,17 +60,29 @@ function fetchFiveDayWeatherForecastAPI(search) {
     console.log('5 Day API: ' + url);
     fetch(url).
     then(data => data.json()).
-    then(data => console.log(data));
+    then(data => getFiveDayWeatherForecastEndPoints(data, forecastLocationDateAndTime[1]));
 }
 
 function getCurrentWeatherEndPoints(data) {
     //console.log(data);
     const location = data.name;
-    const forecastLocationDateAndTime = locationDateAndTime(data.timezone);
+    forecastLocationDateAndTime = locationDateAndTime(data.timezone);
     const decription = data.weather[0].main;
     const kelvinTemps = [data.main.temp, data.main.temp_min, data.main.temp_max];
     const fahrenheitTemps = kelvinToFahrenheitConversion(kelvinTemps);
     displayCurrentWeather(location, decription, fahrenheitTemps, forecastLocationDateAndTime);
+}
+
+//BUG: Sometimes this method will run before current date is fetched for first API
+function getFiveDayWeatherForecastEndPoints(data, currentDate) {
+    //console.log(data.list);
+    const currentDay = currentDate.substring('2, 4')
+    console.log(currentDay);
+    let date;
+    for(let i = 0; i < data.list.length; i++) {
+        date = data.list[i].dt_txt;
+        console.log(date);
+    }
 }
 
 function kelvinToFahrenheitConversion(kelvinArray) {
