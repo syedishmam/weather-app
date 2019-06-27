@@ -66,7 +66,6 @@ function fetchFiveDayWeatherForecastAPI(search, currentDate) {
 }
 
 function getCurrentWeatherEndPoints(data) {
-    //console.log(data);
     const location = data.name;
     let forecastLocationDateAndTime = locationDateAndTime(data.timezone);
     const decription = data.weather[0].main;
@@ -83,7 +82,7 @@ function getFiveDayWeatherForecastEndPoints(data, currentDate) {
     let date;
     for(let i = 0; i < data.list.length; i++) {
         date = data.list[i].dt_txt;
-        //console.log(date);
+        console.log(date);
     }
 }
 
