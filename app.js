@@ -1,5 +1,4 @@
 const id = '&APPID=461cc545cccc3774d751cba7596261d3';
-let forecastLocationDateAndTime;
 
 const searchBar = document.getElementById("searchBar");
 const searchButton = document.getElementById("searchButton");
@@ -9,14 +8,12 @@ const weatherDisplay = document.getElementById('weatherDisplay');
 //Event Listeners
 searchButton.addEventListener('click', () => {
     fetchCurrentWeatherAPI(searchBar.value);
-    fetchFiveDayWeatherForecastAPI(searchBar.value);
 })
 
 searchBar.addEventListener('keypress', (event) => {
     const key = event.which;
     if(key === 13) {
         fetchCurrentWeatherAPI(searchBar.value);
-        fetchFiveDayWeatherForecastAPI(searchBar.value);
     }
 })
 
@@ -43,37 +40,42 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
     weatherDisplay.innerHTML = HTML;
 }
 
-function fetchCurrentWeatherAPI(search) {
-    let url = 'https://api.openweathermap.org/data/2.5/weather?q=';
-    url += search;
-    url += id;
-    console.log('Current Weather API: ' + url);
-    fetch(url).
-    then(data => data.json()).
-    then(data => getCurrentWeatherEndPoints(data));
+const fetchCurrentWeatherAPI = function(search) {
+    return new Promise(() => {
+        let url = 'https://api.openweathermap.org/data/2.5/weather?q=';
+        url += search;
+        url += id;
+        console.log('Current Weather API: ' + url);
+        fetch(url).
+        then(data => data.json()).
+        then((data) => {
+            let currentDate = getCurrentWeatherEndPoints(data);
+            fetchFiveDayWeatherForecastAPI(search, currentDate[1]);
+        });
+    });
 }
 
-function fetchFiveDayWeatherForecastAPI(search) {
+function fetchFiveDayWeatherForecastAPI(search, currentDate) {
     let url = 'https://api.openweathermap.org/data/2.5/forecast?q=';
     url += search;
     url += id;
     console.log('5 Day API: ' + url);
     fetch(url).
     then(data => data.json()).
-    then(data => getFiveDayWeatherForecastEndPoints(data, forecastLocationDateAndTime[1]));
+    then(data => getFiveDayWeatherForecastEndPoints(data, currentDate));
 }
 
 function getCurrentWeatherEndPoints(data) {
     //console.log(data);
     const location = data.name;
-    forecastLocationDateAndTime = locationDateAndTime(data.timezone);
+    let forecastLocationDateAndTime = locationDateAndTime(data.timezone);
     const decription = data.weather[0].main;
     const kelvinTemps = [data.main.temp, data.main.temp_min, data.main.temp_max];
     const fahrenheitTemps = kelvinToFahrenheitConversion(kelvinTemps);
     displayCurrentWeather(location, decription, fahrenheitTemps, forecastLocationDateAndTime);
+    return forecastLocationDateAndTime;
 }
 
-//BUG: Sometimes this method will run before current date is fetched for first API
 function getFiveDayWeatherForecastEndPoints(data, currentDate) {
     //console.log(data.list);
     const currentDay = currentDate.substring('2, 4')
@@ -81,7 +83,7 @@ function getFiveDayWeatherForecastEndPoints(data, currentDate) {
     let date;
     for(let i = 0; i < data.list.length; i++) {
         date = data.list[i].dt_txt;
-        console.log(date);
+        //console.log(date);
     }
 }
 
