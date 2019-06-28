@@ -77,13 +77,21 @@ function getCurrentWeatherEndPoints(data) {
 
 function getFiveDayWeatherForecastEndPoints(data, currentDate) {
     //console.log(data.list);
-    const currentDay = currentDate.substring('2, 4')
-    console.log(currentDay);
+    let currentDateReformat = currentDate.substring(5);
+    if(currentDate.substring(0, 2) > 9) {
+        currentDateReformat += '-' + currentDate.substring(0, 2);
+    } else {
+        currentDateReformat += '-0' + currentDate.substring(0, 1);
+    }
+    const dateSet = new Set();
+    console.log(currentDate);
+    console.log(currentDateReformat);
     let date;
     for(let i = 0; i < data.list.length; i++) {
-        date = data.list[i].dt_txt;
-        console.log(date);
+        date = data.list[i].dt_txt.substring(0, 10);
+        dateSet[i] = date;
     }
+    console.log(dateSet);
 }
 
 function kelvinToFahrenheitConversion(kelvinArray) {
