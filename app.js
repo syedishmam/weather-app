@@ -76,22 +76,8 @@ function getCurrentWeatherEndPoints(data) {
 }
 
 function getFiveDayWeatherForecastEndPoints(data, currentDate) {
-    //console.log(data.list);
-    let currentDateReformat = currentDate.substring(5);
-    if(currentDate.substring(0, 2) > 9) {
-        currentDateReformat += '-' + currentDate.substring(0, 2);
-    } else {
-        currentDateReformat += '-0' + currentDate.substring(0, 1);
-    }
-    const dateSet = new Set();
-    console.log(currentDate);
-    console.log(currentDateReformat);
-    let date;
-    for(let i = 0; i < data.list.length; i++) {
-        date = data.list[i].dt_txt.substring(0, 10);
-        dateSet[i] = date;
-    }
-    console.log(dateSet);
+    const nextFiveDates = getNextFiveDates(data, currentDate);
+    console.log(nextFiveDates);
 }
 
 function kelvinToFahrenheitConversion(kelvinArray) {
@@ -136,4 +122,23 @@ function locationDateAndTime(offset) {
         forecastLocationDate.toLocaleTimeString()
     ];
     return forecastLocationDateAndTime;
+}
+
+function getNextFiveDates(data, currentDate) {
+    //console.log(data.list);
+    let currentDateReformat;
+    if(currentDate.substring(0, 2) > 9) {
+        currentDateReformat = currentDate.substring(6) + '-' + currentDate.substring(0, 2) + '-' + currentDate.substring(3, 5);
+    } else {
+        currentDateReformat = currentDate.substring(5) + '-0' + currentDate.substring(0, 1) + '-' + currentDate.substring(2, 4);
+    }
+    const dateSet = [];
+    let date;
+    for(let i = 0; i < data.list.length; i++) {
+        date = data.list[i].dt_txt.substring(0, 10);
+        if(!dateSet.includes(date)) {
+            dateSet.push(date);
+        }
+    }
+    return dateSet;
 }
