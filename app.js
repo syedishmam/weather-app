@@ -134,9 +134,10 @@ function getNextFiveDates(data, currentDate) {
     }
     const dateSet = [];
     let date;
+    console.log(currentDateReformat.substring(5, 10));
     for(let i = 0; i < data.list.length; i++) {
-        date = data.list[i].dt_txt.substring(0, 10);
-        if(!dateSet.includes(date)) {
+        date = data.list[i].dt_txt.substring(5, 10);
+        if(!dateSet.includes(date) && date !== currentDateReformat.substring(5, 10)) {
             dateSet.push(date);
         }
     }
