@@ -125,7 +125,6 @@ function locationDateAndTime(offset) {
 }
 
 function getNextFiveDates(data, currentDate) {
-    //console.log(data.list);
     let currentDateReformat;
     if(currentDate.substring(0, 2) > 9) {
         currentDateReformat = currentDate.substring(6) + '-' + currentDate.substring(0, 2) + '-' + currentDate.substring(3, 5);
@@ -134,11 +133,18 @@ function getNextFiveDates(data, currentDate) {
     }
     const dateSet = [];
     let date;
-    console.log(currentDateReformat.substring(5, 10));
-    for(let i = 0; i < data.list.length; i++) {
+    for(let i = 0; data.list.length > i; i++) {
         date = data.list[i].dt_txt.substring(5, 10);
+        //If dateSet does not include an instance of date and date is not the same as current date add to dateSet
         if(!dateSet.includes(date) && date !== currentDateReformat.substring(5, 10)) {
             dateSet.push(date);
+        }
+    }
+    //Replace - with / and if date starts with 0, remove it
+    for(let j = 0; dateSet.length > j; j++) {
+        dateSet[j] = dateSet[j].substring(0, 2) + '/' + dateSet[j].substring(3, 5);
+        if(parseInt(dateSet[j].substring(0, 1)) === 0) {
+            dateSet[j] = dateSet[j].substring(1);
         }
     }
     return dateSet;
