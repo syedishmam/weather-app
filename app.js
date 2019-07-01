@@ -77,8 +77,10 @@ function getCurrentWeatherEndPoints(data) {
 
 function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
     const nextFiveDates = getNextFiveDates(data, currentDayDateAndTime[1]);
-    console.log('Next 5 Dates: ' + nextFiveDates);
-    const nextFiveDays = getNextFiveDays(currentDayDateAndTime);
+    const nextFiveDays = getNextFiveDays(currentDayDateAndTime[0]);
+    for(let i = 0; i < nextFiveDates.length; i++) {
+        console.log(nextFiveDates[i] + ': ' + nextFiveDays[i]);
+    }
 }
 
 function getNextFiveDates(data, currentDate) {
@@ -106,8 +108,38 @@ function getNextFiveDates(data, currentDate) {
     return dateSet;
 }
 
-function getNextFiveDays(currentDate) {
-
+function getNextFiveDays(currentDay) {
+    let daysArray = [];
+    switch(currentDay) {
+        case 'Sunday':
+            daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            break;
+        case 'Monday': {
+            daysArray = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            break;
+        }
+        case 'Tuesday': {
+            daysArray = ['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            break;
+        }
+        case 'Wednesday': {
+            daysArray = ['Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday'];
+            break;
+        }
+        case 'Thursday': {
+            daysArray = ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday'];
+            break;
+        }
+        case 'Friday': {
+            daysArray = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'];
+            break;
+        }
+        case 'Saturday': {
+            daysArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+            break;
+        }
+    }
+    return daysArray;
 }
 
 function kelvinToFahrenheitConversion(kelvinArray) {
