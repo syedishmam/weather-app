@@ -147,20 +147,23 @@ function locationDateAndTime(offset) {
     return forecastLocationDateAndTime;
 }
 
+//Reformats current date from current weather API to be searchable in 5 day API
+// 7/1/2019 ---> 2019-07-01
 function reformatCurrentDate(currentDate) {
     currentDateSplit = currentDate.split('/');
     let currentDateReformat;
-    if(currentDateSplit[0] > 9) {
-        currentDateReformat = currentDateSplit[2] + '-' + currentDateSplit[0];
-    } else {
+    //If months is less than 9 add a zero
+    if(currentDateSplit[0] < 9) {
         currentDateReformat = currentDateSplit[2] + '-0' + currentDateSplit[0];
+    } else {
+        currentDateReformat = currentDateSplit[2] + '-' + currentDateSplit[0];
     }
-    if(currentDateSplit[1] > 9) {
-        currentDateReformat += '-' + currentDateSplit[1];
-    }
-    else {
+    //If day is less than 9 add a zero
+    if(currentDateSplit[1] < 9) {
         currentDateReformat += '-0' + currentDateSplit[1];
     }
-    console.log(currentDateReformat);
+    else {
+        currentDateReformat += '-' + currentDateSplit[1];
+    }
     return currentDateReformat;
 }
