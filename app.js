@@ -19,17 +19,17 @@ searchBar.addEventListener('keypress', (event) => {
 
 //Methods
 function displayCurrentWeather(location, description, temp, dayDateAndTime) {
-    console.log(
-        'Current Weather'
-        + '\n\nCity: ' + location 
-        + '\nForecast: ' + description 
-        + '\nCurrent Temp: ' + temp[0] 
-        + '\nLow: ' + temp[1] 
-        + '\nHigh: ' + temp[2]
-        + '\nDay: ' + dayDateAndTime[0]
-        + '\nDate: ' + dayDateAndTime[1]
-        + '\nTime: ' + dayDateAndTime[2]
-    );
+        /*console.log(
+            'Current Weather'
+            + '\n\nCity: ' + location 
+            + '\nForecast: ' + description 
+            + '\nCurrent Temp: ' + temp[0] 
+            + '\nLow: ' + temp[1] 
+            + '\nHigh: ' + temp[2]
+            + '\nDay: ' + dayDateAndTime[0]
+            + '\nDate: ' + dayDateAndTime[1]
+            + '\nTime: ' + dayDateAndTime[2]
+        ); */
     let HTML = '<p id="forecastLocation" class="forecast">' + location + '</p>';
     HTML += '<p id="forecastDescription" class="forecast">' + description + '</p>';
     HTML += '<p id="forecastTemp" class="forecast">' + temp[0] + '&deg</p>';
@@ -80,6 +80,29 @@ function getFiveDayWeatherForecastEndPoints(data, currentDate) {
     console.log(nextFiveDates);
 }
 
+function getNextFiveDates(data, currentDate) {
+    let currentDateReformat = reformatCurrentDate(currentDate)
+    const dateSet = [];
+    let date;
+    for(let i = 0; data.list.length > i; i++) {
+        date = data.list[i].dt_txt.substring(5, 10);
+        //If dateSet does not include an instance of date and date is not the same as current date add to dateSet
+        if(!dateSet.includes(date) && date !== currentDateReformat.substring(5, 10)) {
+            dateSet.push(date);
+        }
+    }
+    //console.log(currentDateReformat.substring(5, 10));
+    //console.log(date);
+    //Replace - with / and if date starts with 0, remove it
+    for(let j = 0; dateSet.length > j; j++) {
+        dateSet[j] = dateSet[j].substring(0, 2) + '/' + dateSet[j].substring(3, 5);
+        if(parseInt(dateSet[j].substring(0, 1)) === 0) {
+            dateSet[j] = dateSet[j].substring(1);
+        }
+    }
+    return dateSet;
+}
+
 function kelvinToFahrenheitConversion(kelvinArray) {
     for(let i = 0; i < kelvinArray.length; i++) {
         kelvinArray[i] = Math.round(kelvinArray[i] * 9/5 - 459.67);
@@ -124,28 +147,20 @@ function locationDateAndTime(offset) {
     return forecastLocationDateAndTime;
 }
 
-function getNextFiveDates(data, currentDate) {
+function reformatCurrentDate(currentDate) {
+    currentDateSplit = currentDate.split('/');
     let currentDateReformat;
-    if(currentDate.substring(0, 2) > 9) {
-        currentDateReformat = currentDate.substring(6) + '-' + currentDate.substring(0, 2) + '-' + currentDate.substring(3, 5);
+    if(currentDateSplit[0] > 9) {
+        currentDateReformat = currentDateSplit[2] + '-' + currentDateSplit[0];
     } else {
-        currentDateReformat = currentDate.substring(5) + '-0' + currentDate.substring(0, 1) + '-' + currentDate.substring(2, 4);
+        currentDateReformat = currentDateSplit[2] + '-0' + currentDateSplit[0];
     }
-    const dateSet = [];
-    let date;
-    for(let i = 0; data.list.length > i; i++) {
-        date = data.list[i].dt_txt.substring(5, 10);
-        //If dateSet does not include an instance of date and date is not the same as current date add to dateSet
-        if(!dateSet.includes(date) && date !== currentDateReformat.substring(5, 10)) {
-            dateSet.push(date);
-        }
+    if(currentDateSplit[1] > 9) {
+        currentDateReformat += '-' + currentDateSplit[1];
     }
-    //Replace - with / and if date starts with 0, remove it
-    for(let j = 0; dateSet.length > j; j++) {
-        dateSet[j] = dateSet[j].substring(0, 2) + '/' + dateSet[j].substring(3, 5);
-        if(parseInt(dateSet[j].substring(0, 1)) === 0) {
-            dateSet[j] = dateSet[j].substring(1);
-        }
+    else {
+        currentDateReformat += '-0' + currentDateSplit[1];
     }
-    return dateSet;
+    console.log(currentDateReformat);
+    return currentDateReformat;
 }
