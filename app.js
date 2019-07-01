@@ -19,7 +19,7 @@ searchBar.addEventListener('keypress', (event) => {
 
 //Methods
 function displayCurrentWeather(location, description, temp, dayDateAndTime) {
-        /*console.log(
+        console.log(
             'Current Weather'
             + '\n\nCity: ' + location 
             + '\nForecast: ' + description 
@@ -29,7 +29,7 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
             + '\nDay: ' + dayDateAndTime[0]
             + '\nDate: ' + dayDateAndTime[1]
             + '\nTime: ' + dayDateAndTime[2]
-        ); */
+        );
     let HTML = '<p id="forecastLocation" class="forecast">' + location + '</p>';
     HTML += '<p id="forecastDescription" class="forecast">' + description + '</p>';
     HTML += '<p id="forecastTemp" class="forecast">' + temp[0] + '&deg</p>';
@@ -45,24 +45,24 @@ const fetchCurrentWeatherAPI = function(search) {
         let url = 'https://api.openweathermap.org/data/2.5/weather?q=';
         url += search;
         url += id;
-        console.log('Current Weather API: ' + url);
+        //console.log('Current Weather API: ' + url);
         fetch(url).
         then(data => data.json()).
         then((data) => {
-            let currentDate = getCurrentWeatherEndPoints(data);
-            fetchFiveDayWeatherForecastAPI(search, currentDate[1]);
+            let currentDayDateAndTime = getCurrentWeatherEndPoints(data);
+            fetchFiveDayWeatherForecastAPI(search, currentDayDateAndTime);
         });
     });
 }
 
-function fetchFiveDayWeatherForecastAPI(search, currentDate) {
+function fetchFiveDayWeatherForecastAPI(search, currentDayDateAndTime) {
     let url = 'https://api.openweathermap.org/data/2.5/forecast?q=';
     url += search;
     url += id;
-    console.log('5 Day API: ' + url);
+    //console.log('5 Day API: ' + url);
     fetch(url).
     then(data => data.json()).
-    then(data => getFiveDayWeatherForecastEndPoints(data, currentDate));
+    then(data => getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime));
 }
 
 function getCurrentWeatherEndPoints(data) {
@@ -75,12 +75,15 @@ function getCurrentWeatherEndPoints(data) {
     return forecastLocationDateAndTime;
 }
 
-function getFiveDayWeatherForecastEndPoints(data, currentDate) {
-    const nextFiveDates = getNextFiveDates(data, currentDate);
-    console.log(nextFiveDates);
+function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
+    const nextFiveDates = getNextFiveDates(data, currentDayDateAndTime[1]);
+    console.log('Next 5 Dates: ' + nextFiveDates);
+    const nextFiveDays = getNextFiveDays(currentDayDateAndTime);
 }
 
 function getNextFiveDates(data, currentDate) {
+    //Reformats date from 7/1/2019 to 2019-07-01
+    //console.log(data.list);
     let currentDateReformat = reformatCurrentDate(currentDate)
     const dateSet = [];
     let date;
@@ -101,6 +104,10 @@ function getNextFiveDates(data, currentDate) {
         }
     }
     return dateSet;
+}
+
+function getNextFiveDays(currentDate) {
+
 }
 
 function kelvinToFahrenheitConversion(kelvinArray) {
