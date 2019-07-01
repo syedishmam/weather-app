@@ -76,36 +76,42 @@ function getCurrentWeatherEndPoints(data) {
 }
 
 function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
-    const nextFiveDates = getNextFiveDates(data, currentDayDateAndTime[1]);
+    const datesAndForecasts = getNextFiveDatesAndForecasts(data, currentDayDateAndTime[1]);
+    const nextFiveDates = getNextFiveDatesAndForecasts(data, currentDayDateAndTime[1])[0];
+    const nextFiveForecasts = datesAndForecasts[1];
     const nextFiveDays = getNextFiveDays(currentDayDateAndTime[0]);
     for(let i = 0; i < nextFiveDates.length; i++) {
-        console.log(nextFiveDates[i] + ': ' + nextFiveDays[i]);
+        console.log(nextFiveDates[i] + ': ' + nextFiveDays[i] + ', ' + nextFiveForecasts[i]);
     }
 }
 
-function getNextFiveDates(data, currentDate) {
+function getNextFiveDatesAndForecasts(data, currentDate) {
     //Reformats date from 7/1/2019 to 2019-07-01
     //console.log(data.list);
     let currentDateReformat = reformatCurrentDate(currentDate)
-    const dateSet = [];
+    const dateArray = [];
+    const forecastArray =[];
     let date;
     for(let i = 0; data.list.length > i; i++) {
         date = data.list[i].dt_txt.substring(5, 10);
-        //If dateSet does not include an instance of date and date is not the same as current date add to dateSet
-        if(!dateSet.includes(date) && date !== currentDateReformat.substring(5, 10)) {
-            dateSet.push(date);
+        forecast = data.list[i].weather[0].main;
+        //If dateArray does not include an instance of date and date is not the same as current date add to dateArray
+        if(!dateArray.includes(date) && date !== currentDateReformat.substring(5, 10)) {
+            dateArray.push(date);
+            forecastArray.push(forecast);
         }
     }
     //console.log(currentDateReformat.substring(5, 10));
     //console.log(date);
     //Replace - with / and if date starts with 0, remove it
-    for(let j = 0; dateSet.length > j; j++) {
-        dateSet[j] = dateSet[j].substring(0, 2) + '/' + dateSet[j].substring(3, 5);
-        if(parseInt(dateSet[j].substring(0, 1)) === 0) {
-            dateSet[j] = dateSet[j].substring(1);
+    for(let j = 0; dateArray.length > j; j++) {
+        dateArray[j] = dateArray[j].substring(0, 2) + '/' + dateArray[j].substring(3, 5);
+        if(parseInt(dateArray[j].substring(0, 1)) === 0) {
+            dateArray[j] = dateArray[j].substring(1);
         }
     }
-    return dateSet;
+    const datesAndForecasts = [dateArray, forecastArray];
+    return datesAndForecasts;
 }
 
 function getNextFiveDays(currentDay) {
