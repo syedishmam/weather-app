@@ -76,33 +76,46 @@ function getCurrentWeatherEndPoints(data) {
 }
 
 function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
-    const datesAndForecasts = getNextFiveDatesAndForecasts(data, currentDayDateAndTime[1]);
-    const nextFiveDates = getNextFiveDatesAndForecasts(data, currentDayDateAndTime[1])[0];
-    const nextFiveForecasts = datesAndForecasts[1];
+    const datesForecastsAndLowHighTemps = getNextFiveDatesForecastsAndLowHighs(data, currentDayDateAndTime[1]);
+    const nextFiveDates = datesForecastsAndLowHighTemps[0];
+    const nextFiveForecasts = datesForecastsAndLowHighTemps[1];
+    const nextFiveLowHighTemps = datesForecastsAndLowHighTemps[2];
     const nextFiveDays = getNextFiveDays(currentDayDateAndTime[0]);
     for(let i = 0; i < nextFiveDates.length; i++) {
-        console.log(nextFiveDates[i] + ': ' + nextFiveDays[i] + ', ' + nextFiveForecasts[i]);
+        console.log(nextFiveDates[i] 
+            + ': ' + nextFiveDays[i] 
+            + ', ' + nextFiveForecasts[i] 
+            + ' ' + nextFiveLowHighTemps[i]);
     }
 }
 
-function getNextFiveDatesAndForecasts(data, currentDate) {
+function getNextFiveDatesForecastsAndLowHighs(data, currentDate) {
     //Reformats date from 7/1/2019 to 2019-07-01
     //console.log(data.list);
     let currentDateReformat = reformatCurrentDate(currentDate)
     const dateArray = [];
     const forecastArray =[];
     let date;
+    let nextForecast;
+    let nextFiveLowsAndHighs = [];
+    let lowAndHigh = [];
+    let low;
+    let high;
     for(let i = 0; data.list.length > i; i++) {
         date = data.list[i].dt_txt.substring(5, 10);
-        forecast = data.list[i].weather[0].main;
+        nextForecast = data.list[i].weather[0].main;
+        low = data.list[i].main.temp_min;
+        high = data.list[i].main.temp_max;
+        lowAndHigh = [];
+        lowAndHigh = [low, high];
+        lowAndHigh = kelvinToFahrenheitConversion(lowAndHigh);
         //If dateArray does not include an instance of date and date is not the same as current date add to dateArray
         if(!dateArray.includes(date) && date !== currentDateReformat.substring(5, 10)) {
             dateArray.push(date);
-            forecastArray.push(forecast);
+            forecastArray.push(nextForecast);
+            nextFiveLowsAndHighs.push(lowAndHigh);
         }
     }
-    //console.log(currentDateReformat.substring(5, 10));
-    //console.log(date);
     //Replace - with / and if date starts with 0, remove it
     for(let j = 0; dateArray.length > j; j++) {
         dateArray[j] = dateArray[j].substring(0, 2) + '/' + dateArray[j].substring(3, 5);
@@ -110,8 +123,8 @@ function getNextFiveDatesAndForecasts(data, currentDate) {
             dateArray[j] = dateArray[j].substring(1);
         }
     }
-    const datesAndForecasts = [dateArray, forecastArray];
-    return datesAndForecasts;
+    const datesForecastsAndLowHighs = [dateArray, forecastArray, nextFiveLowsAndHighs];
+    return datesForecastsAndLowHighs;
 }
 
 function getNextFiveDays(currentDay) {
