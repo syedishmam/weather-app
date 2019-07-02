@@ -5,12 +5,6 @@
     margin: 0rem;
     padding: 0rem;
 }
-
-td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 1rem 4rem;
-}
   
 /* --- ID Styles  --- */
 #date {
@@ -29,7 +23,6 @@ td {
     height: 40rem;
     border: 1px solid black;
 }
-
 
 #fiveDayWeatherReportTable {
     margin: 0rem auto;
@@ -131,29 +124,6 @@ td {
     float: left;
     margin-top: 9rem;
     font-size: 75%;
-}
-
-.fiveDayWeatherReportDate{
-    margin-left: 4vw;
-    float: left;
-    font-size: 75%;
-}
-
-.fiveDayWeatherReportDay {
-    padding-right: 0rem;
-    padding-left: 0rem;
-
-}
-
-.fiveDayWeatherReportHigh {
-    padding-right: .75rem;
-    padding-left: 5rem;
-}
-
-.fiveDayWeatherReportLow {
-    margin-right: 4vw;
-    padding-left: .75rem;
-    padding-right: 0rem;
 }
 
 .forecast {
