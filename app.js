@@ -1,5 +1,6 @@
 const id = '&APPID=461cc545cccc3774d751cba7596261d3';
 
+const fiveDayWeatherReportTable = document.getElementById('fiveDayWeatherReportTable');
 const searchBar = document.getElementById("searchBar");
 const searchButton = document.getElementById("searchButton");
 const searchContainer = document.getElementById("searchContainer");
@@ -38,6 +39,45 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
     HTML += '<p id="day" class="dayAndDate">'+ dayDateAndTime[0] + '</p>';
     HTML += '<p id="date" class="dayAndDate">'+ dayDateAndTime[1] + '</p>';
     weatherDisplay.innerHTML = HTML;
+}
+
+function displayFiveDayWeatherForecast(daysArray, forecastsArray, highsLowsArray) {
+    let HTML; 
+    HTML = '<tr id="row1" class="fiveDayWeatherReportRow row">'
+        + '<td class="fiveDayWeatherReportDay">' + daysArray[0] +'</td>'
+        + '<td class="fiveDayWeatherReportForecast">AB</td>'
+        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[0][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[0][1] + '</td>'
+        + '</tr>'
+        //Row 2
+        + '<tr id="row1" class="fiveDayWeatherReportRow row">'
+        + '<td class="fiveDayWeatherReportDay">' + daysArray[1] +'</td>'
+        + '<td class="fiveDayWeatherReportForecast">AB</td>'
+        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[1][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[1][1] + '</td>'
+        + '</tr>'
+        //Row 3
+        + '<tr id="row1" class="fiveDayWeatherReportRow row">'
+        + '<td class="fiveDayWeatherReportDay">' + daysArray[2] +'</td>'
+        + '<td class="fiveDayWeatherReportForecast">AB</td>'
+        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[2][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[2][1] + '</td>'
+        + '</tr>'
+        //Row 4
+        + '<tr id="row1" class="fiveDayWeatherReportRow row">'
+        + '<td class="fiveDayWeatherReportDay">' + daysArray[3] +'</td>'
+        + '<td class="fiveDayWeatherReportForecast">AB</td>'
+        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[3][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[3][1] + '</td>'
+        + '</tr>'
+        //Row 5
+        + '<tr id="row1" class="fiveDayWeatherReportRow row">'
+        + '<td class="fiveDayWeatherReportDay">' + daysArray[4] +'</td>'
+        + '<td class="fiveDayWeatherReportForecast">AB</td>'
+        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[4][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[4][1] + '</td>'
+        + '</tr>';
+    fiveDayWeatherReportTable.innerHTML = HTML;
 }
 
 const fetchCurrentWeatherAPI = function(search) {
@@ -87,6 +127,7 @@ function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
             + ', ' + nextFiveForecasts[i] 
             + ' ' + nextFiveLowHighTemps[i]);
     }
+    displayFiveDayWeatherForecast(nextFiveDays, nextFiveLowHighTemps, nextFiveForecasts);
 }
 
 function getNextFiveDatesForecastsAndLowHighs(data, currentDate) {
