@@ -25,7 +25,7 @@
 }
 
 #fiveDayWeatherReportTable {
-    margin: 0rem auto;
+    width: 100vw;
     font-size: 265%;
 }
 
@@ -124,6 +124,36 @@
     float: left;
     margin-top: 9rem;
     font-size: 75%;
+}
+
+.fiveDayWeatherReportDate {
+    margin-left: 4vw;
+    padding-right: 0.5rem;
+}
+
+.fiveDayWeatherReportDay {
+    padding-left: 0.5rem;
+}
+
+.fiveDayWeatherReportDateAndDay {
+    float: left;
+}
+
+.fiveDayWeatherReportForecast {
+    border: none;
+}
+
+.fiveDayWeatherReportHighAndLow {
+    float: right;
+}
+
+.fiveDayWeatherReportHigh {
+    padding-right: 0.5rem;
+}
+
+.fiveDayWeatherReportLow {
+    margin-right: 4vw;
+    padding-left: 0.5rem;
 }
 
 .forecast {
