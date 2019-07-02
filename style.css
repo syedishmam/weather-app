@@ -33,7 +33,7 @@ td {
 
 #fiveDayWeatherReportTable {
     margin: 0rem auto;
-    font-size: 300%;
+    font-size: 265%;
 }
 
 #fiveDayWeatherReportTitle {
@@ -133,15 +133,21 @@ td {
     font-size: 75%;
 }
 
-.fiveDayWeatherReportDay {
+.fiveDayWeatherReportDate{
     margin-left: 4vw;
-    padding-right: 10rem;
+    float: left;
+    font-size: 75%;
+}
+
+.fiveDayWeatherReportDay {
+    padding-right: 0rem;
     padding-left: 0rem;
+
 }
 
 .fiveDayWeatherReportHigh {
     padding-right: .75rem;
-    padding-left: 14.5rem;
+    padding-left: 5rem;
 }
 
 .fiveDayWeatherReportLow {
