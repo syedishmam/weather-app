@@ -25,8 +25,10 @@
 }
 
 #fiveDayWeatherReportTable {
-    width: 100vw;
-    font-size: 265%;
+    width: 92vw;
+    margin: 0px 4vw;
+    font-size: 260%;
+    border-spacing: 0px 2rem;
 }
 
 #fiveDayWeatherReportTitle {
@@ -127,33 +129,27 @@
 }
 
 .fiveDayWeatherReportDate {
-    margin-left: 4vw;
-    padding-right: 0.5rem;
+    width: 11vw;
+    font-size: 75%;
 }
 
 .fiveDayWeatherReportDay {
-    padding-left: 0.5rem;
-}
-
-.fiveDayWeatherReportDateAndDay {
-    float: left;
+    width: 30vw;
 }
 
 .fiveDayWeatherReportForecast {
-    border: none;
-}
-
-.fiveDayWeatherReportHighAndLow {
-    float: right;
+    text-align: center;
+    width: 10vw;
 }
 
 .fiveDayWeatherReportHigh {
-    padding-right: 0.5rem;
+    width: 10vw;
+    text-align: right;
 }
 
 .fiveDayWeatherReportLow {
-    margin-right: 4vw;
-    padding-left: 0.5rem;
+    width: 31vw;
+    text-align: right;
 }
 
 .forecast {
