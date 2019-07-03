@@ -28,7 +28,6 @@
 #fiveDayWeatherReportTable {
     width: 92vw;
     margin: 2rem 4vw;
-    border-spacing: 0px 3rem;
     font-size: 75%;
     font-weight: bolder;
 }
@@ -39,6 +38,7 @@
     position:fixed;
     bottom:0;
     border: 1px solid black;
+    background-color: white;
 }
 
 #forecastLocation {
@@ -58,7 +58,7 @@
 }
 
 #highTemp {
-    margin-right: 3rem;
+    margin-right: 4vw;
     text-align: right;
     color: red;
     float: right;
@@ -67,8 +67,7 @@
 #lowTemp {
     float: right;
     text-align: right;
-    margin-left: 0rem;
-    margin-right: 4vw;
+    margin-right: 3rem;
     color: blue;
 }
 
@@ -154,4 +153,9 @@
     margin-top: 9rem;
     font-size: 75%;
     font-weight: bolder;
+}
+
+.icon {
+    width: 100%;
+    height: auto;
 }

@@ -41,41 +41,52 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
     weatherDisplay.innerHTML = HTML;
 }
 
-function displayFiveDayWeatherForecast(daysArray, forecastsArray, highsLowsArray) {
+function displayFiveDayWeatherForecast(daysArray, highsLowsArray, iconsArray, forecastsArray) {
+    fiveDayWeatherReportTable.innerHTML = '';
     let HTML; 
     HTML = '<tr id="row1" class="fiveDayWeatherReportRow row">'
         + '<td class="fiveDayWeatherReportDay">' + daysArray[0] +'</td>'
-        + '<td class="fiveDayWeatherReportForecast">AB</td>'
-        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[0][0] + '</td>'
-        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[0][1] + '</td>'
+        + '<td class="fiveDayWeatherReportForecast">'
+            + '<img class="icon" src="http://openweathermap.org/img/w/' + iconsArray[0] + '.png" alt="' + forecastsArray[0] +'">'
+        + '</td>'
+        + '<td class="fiveDayWeatherReportLow">' + highsLowsArray[0][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + highsLowsArray[0][1] + '</td>'
         + '</tr>'
         //Row 2
         + '<tr id="row1" class="fiveDayWeatherReportRow row">'
         + '<td class="fiveDayWeatherReportDay">' + daysArray[1] +'</td>'
-        + '<td class="fiveDayWeatherReportForecast">AB</td>'
-        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[1][0] + '</td>'
-        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[1][1] + '</td>'
+        + '<td class="fiveDayWeatherReportForecast">'
+            + '<img class="icon" src="http://openweathermap.org/img/w/' + iconsArray[1] + '.png" alt="' + forecastsArray[0] +'">'
+        + '</td>'
+        + '<td class="fiveDayWeatherReportLow">' + highsLowsArray[1][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + highsLowsArray[1][1] + '</td>'
         + '</tr>'
         //Row 3
         + '<tr id="row1" class="fiveDayWeatherReportRow row">'
         + '<td class="fiveDayWeatherReportDay">' + daysArray[2] +'</td>'
-        + '<td class="fiveDayWeatherReportForecast">AB</td>'
-        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[2][0] + '</td>'
-        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[2][1] + '</td>'
+        + '<td class="fiveDayWeatherReportForecast">'
+            + '<img class="icon" src="http://openweathermap.org/img/w/' + iconsArray[2] + '.png" alt="' + forecastsArray[0] +'">'
+        + '</td>'
+        + '<td class="fiveDayWeatherReportLow">' + highsLowsArray[2][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + highsLowsArray[2][1] + '</td>'
         + '</tr>'
         //Row 4
         + '<tr id="row1" class="fiveDayWeatherReportRow row">'
         + '<td class="fiveDayWeatherReportDay">' + daysArray[3] +'</td>'
-        + '<td class="fiveDayWeatherReportForecast">AB</td>'
-        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[3][0] + '</td>'
-        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[3][1] + '</td>'
+        + '<td class="fiveDayWeatherReportForecast">'
+            + '<img class="icon" src="http://openweathermap.org/img/w/' + iconsArray[3] + '.png" alt="' + forecastsArray[0] +'">'
+        + '</td>'
+        + '<td class="fiveDayWeatherReportLow">' + highsLowsArray[3][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + highsLowsArray[3][1] + '</td>'
         + '</tr>'
         //Row 5
         + '<tr id="row1" class="fiveDayWeatherReportRow row">'
         + '<td class="fiveDayWeatherReportDay">' + daysArray[4] +'</td>'
-        + '<td class="fiveDayWeatherReportForecast">AB</td>'
-        + '<td class="fiveDayWeatherReportLow">' + forecastsArray[4][0] + '</td>'
-        + '<td class="fiveDayWeatherReportHigh">' + forecastsArray[4][1] + '</td>'
+        + '<td class="fiveDayWeatherReportForecast">'
+            + '<img class="icon" src="http://openweathermap.org/img/w/' + iconsArray[4] + '.png" alt="' + forecastsArray[0] +'">'
+        + '</td>'
+        + '<td class="fiveDayWeatherReportLow">' + highsLowsArray[4][0] + '</td>'
+        + '<td class="fiveDayWeatherReportHigh">' + highsLowsArray[4][1] + '</td>'
         + '</tr>';
     fiveDayWeatherReportTable.innerHTML = HTML;
 }
@@ -116,10 +127,11 @@ function getCurrentWeatherEndPoints(data) {
 }
 
 function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
-    const datesForecastsAndLowHighTemps = getNextFiveDatesForecastsAndLowHighs(data, currentDayDateAndTime[1]);
-    const nextFiveDates = datesForecastsAndLowHighTemps[0];
-    const nextFiveForecasts = datesForecastsAndLowHighTemps[1];
-    const nextFiveLowHighTemps = datesForecastsAndLowHighTemps[2];
+    const datesForecastsTempsAndIcons = nextFiveDatesForecastsTempsAndIcons(data, currentDayDateAndTime[1]);
+    const nextFiveDates = datesForecastsTempsAndIcons[0];
+    const nextFiveForecasts = datesForecastsTempsAndIcons[1];
+    const nextFiveLowHighTemps = datesForecastsTempsAndIcons[2];
+    const nextFiveIcons = datesForecastsTempsAndIcons[3];
     const nextFiveDays = getNextFiveDays(currentDayDateAndTime[0]);
     for(let i = 0; i < nextFiveDates.length; i++) {
         console.log(nextFiveDates[i] 
@@ -127,10 +139,10 @@ function getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime) {
             + ', ' + nextFiveForecasts[i] 
             + ' ' + nextFiveLowHighTemps[i]);
     }
-    displayFiveDayWeatherForecast(nextFiveDays, nextFiveLowHighTemps, nextFiveForecasts);
+    displayFiveDayWeatherForecast(nextFiveDays, nextFiveLowHighTemps, nextFiveIcons, nextFiveForecasts);
 }
 
-function getNextFiveDatesForecastsAndLowHighs(data, currentDate) {
+function nextFiveDatesForecastsTempsAndIcons(data, currentDate) {
     //Reformats date from 7/1/2019 to 2019-07-01
     //console.log(data.list);
     let currentDateReformat = reformatCurrentDate(currentDate)
@@ -142,6 +154,8 @@ function getNextFiveDatesForecastsAndLowHighs(data, currentDate) {
     let lowAndHigh = [];
     let low;
     let high;
+    let iconsArray = [];
+    let icon;
     for(let i = 0; data.list.length > i; i++) {
         date = data.list[i].dt_txt.substring(5, 10);
         nextForecast = data.list[i].weather[0].main;
@@ -150,11 +164,13 @@ function getNextFiveDatesForecastsAndLowHighs(data, currentDate) {
         lowAndHigh = [];
         lowAndHigh = [low, high];
         lowAndHigh = kelvinToFahrenheitConversion(lowAndHigh);
+        icon = data.list[i].weather[0].icon;
         //If dateArray does not include an instance of date and date is not the same as current date add to dateArray
         if(!dateArray.includes(date) && date !== currentDateReformat.substring(5, 10)) {
             dateArray.push(date);
             forecastArray.push(nextForecast);
             nextFiveLowsAndHighs.push(lowAndHigh);
+            iconsArray.push(icon);
         }
     }
     //Replace - with / and if date starts with 0, remove it
@@ -164,7 +180,7 @@ function getNextFiveDatesForecastsAndLowHighs(data, currentDate) {
             dateArray[j] = dateArray[j].substring(1);
         }
     }
-    const datesForecastsAndLowHighs = [dateArray, forecastArray, nextFiveLowsAndHighs];
+    const datesForecastsAndLowHighs = [dateArray, forecastArray, nextFiveLowsAndHighs, iconsArray];
     return datesForecastsAndLowHighs;
 }
 
