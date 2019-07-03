@@ -34,8 +34,8 @@ function displayCurrentWeather(location, description, temp, dayDateAndTime) {
     let HTML = '<p id="forecastLocation" class="forecast">' + location + '</p>';
     HTML += '<p id="forecastDescription" class="forecast">' + description + '</p>';
     HTML += '<p id="forecastTemp" class="forecast">' + temp[0] + '&deg</p>';
-    HTML += '<p id="lowTemp" class="highLowTemps">' + temp[1] + '</p>';
     HTML += '<p id="highTemp" class="highLowTemps">' + temp[2] + '</p>';
+    HTML += '<p id="lowTemp" class="highLowTemps">' + temp[1] + '</p>';
     HTML += '<p id="day" class="dayAndDate">'+ dayDateAndTime[0] + '</p>';
     HTML += '<p id="date" class="dayAndDate">'+ dayDateAndTime[1] + '</p>';
     weatherDisplay.innerHTML = HTML;
