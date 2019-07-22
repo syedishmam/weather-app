@@ -110,7 +110,7 @@ function fetchFiveDayWeatherForecastAPI(search, currentDayDateAndTime) {
     let url = 'https://api.openweathermap.org/data/2.5/forecast?q=';
     url += search;
     url += id;
-    //console.log('5 Day API: ' + url);
+    console.log('5 Day API: ' + url);
     fetch(url).
     then(data => data.json()).
     then(data => getFiveDayWeatherForecastEndPoints(data, currentDayDateAndTime));
